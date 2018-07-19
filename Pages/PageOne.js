@@ -6,7 +6,7 @@
 
 import React, { Component } from 'react';
 import {
-  Platform,
+ 
   StyleSheet,
   Text,
   View
@@ -17,37 +17,32 @@ import {Button,Icon} from 'native-base';
 
 export default class PageOne extends React.Component {
  
-  navOptions;
+ 
  
   static navigationOptions=({ navigation }) =>{
-    navOptions =  navigation;
-    const { params = {} } = navigation.state
-    console.warn(navigation)
+ 
+    const { params } = navigation.state
    
 
 
     return {
       headerLeft:(
-        <Button transparent onPress = {() => params._onHeaderEventControl()} >
+        <Button transparent onPress = {() => params._openNav()} >
           <Icon name="menu" style={{ fontSize:30, color:'white' }} />
         </Button>
       )
     }
   }
 
-  onHeaderEventControl(){   
-    const { params = {}  } = navOptions.state;
-    params._openNav() 
-  }
-
   componentDidMount(){
     this.props.navigation.setParams({
-      _onHeaderEventControl: this.onHeaderEventControl,
       _openNav: () => this.openDrawer()
+      
     })
-  }
+  } 
+ 
 
-   openDrawer(){
+  openDrawer(){
     this.props.navigation.openDrawer();
    }
 

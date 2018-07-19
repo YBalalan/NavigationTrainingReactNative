@@ -32,11 +32,6 @@ import  DrawerScreen from './DrawerScreen.js'
                 elevation: 0,
                 showdownOpacity:0,
             },
-         tabBarIcon:({ tintColor }) => {
-                return(
-                  <IconFontAwesome name='home' size={26}  color={tintColor}/>
-                )
-            }
         })
      },
    },{
@@ -48,13 +43,7 @@ import  DrawerScreen from './DrawerScreen.js'
         screen:PageThree,
         navigationOptions:()=>({
             title:'Search',
-            tabBarIcon:({ tintColor }) => {
-                return(
-                    <IconMaterialIcons name='branding-watermark' size={26} color={tintColor}/>
-                )
-            }
-            
-        })
+            })
     }
   } ,{
 })
@@ -65,16 +54,7 @@ import  DrawerScreen from './DrawerScreen.js'
         screen:PageTwo,
        navigationOptions:()=>({
             title:'news',
-            tabBarIcon:({ tintColor }) => {
-                return(
-                    <IconMaterialIcons
-                      name='branding-watermark'
-                      size={26}
-                      color={tintColor}
-                        />
-                )
-            }
-        })
+     })
     },
   },{
   })
@@ -95,10 +75,7 @@ import  DrawerScreen from './DrawerScreen.js'
           }else if(routeName === 'New'){
               iconName = 'logo-hackernews'
           }
-  
-          // You can return any component that you like here! We usually use an
-          // icon component from react-native-vector-icons
-          return <Ionicons name={iconName} size={25} color={tintColor} />;
+       return <Ionicons name={iconName} size={25} color={tintColor} />;
         },
       }),
     tabBarOptions:{
