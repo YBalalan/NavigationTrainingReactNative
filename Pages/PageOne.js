@@ -9,13 +9,32 @@ import {
  
   StyleSheet,
   Text,
-  View
+  View,
+  Picker,
+  AppState,
 } from 'react-native';
 
+
 import {Button,Icon} from 'native-base';
+import PushNotification from 'react-native-push-notification';
+import PushController from './PushController.js';
 
 
 export default class PageOne extends React.Component {
+  constructor (props){
+    super(props);
+
+    this.handleAppStateChange = this.handleAppStateChange.bind(this);
+    this.state = {
+       seconds:5,
+     
+      }
+   
+
+   
+    
+  }
+  
  
  
  
@@ -37,10 +56,27 @@ export default class PageOne extends React.Component {
   componentDidMount(){
     this.props.navigation.setParams({
       _openNav: () => this.openDrawer()
+      })
+      AppState.addEventListener('change',this.handleAppStateChange);
+     }
+
+     componentWillUnmount(){
+       AppState.removeEventListener('change',this.handleAppStateChange);
+     }
+
+     handleAppStateChange(appState){
       
-    })
-  } 
- 
+       if(appState==='background'){
+        console.warn(this.state.seconds)
+        PushNotification.localNotificationSchedule({
+            message:"My Notification Message",
+            date: new Date(Date.now() + (this.state.seconds * 1000))
+          
+          })
+          
+       }
+     }
+  
 
   openDrawer(){
     this.props.navigation.openDrawer();
@@ -50,8 +86,16 @@ export default class PageOne extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>ScreenOne</Text>
-      </View>
+        <Text>Select Notification Time</Text>
+        <Picker style={styles.picker} selectedValue={this.state.seconds}
+                onValueChange={(seconds)=>this.setState({ seconds })}>
+          <Picker.Item label="5" value={5}/>      
+          <Picker.Item label="10" value={10}/> 
+          <Picker.Item label="15" value={15}/> 
+
+        </Picker>
+        <PushController/>
+     </View>
     );
   }
 }
@@ -73,4 +117,8 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
+
+  picker:{
+    width:100,
+  }
 });
